@@ -46,7 +46,12 @@ export function getAllWorkoutsByType(userId: string, type: string): Workout[] {
     if (!users.has(userId)) {
         throw new Error("User not found!");
     }
-    return users.get(userId)!.workouts!.filter(workout => workout.type === type) || null;
+    const workouts =  users.get(userId)!.workouts!.filter(workout => workout.type === type);
+
+    if(workouts.length === 0){
+        throw new Error(`Workouts of type: "${type}" not found!!!`)
+    }
+    return workouts;
 }
 
 export function getUsers(): User[] {
